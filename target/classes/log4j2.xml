@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="5" status="error">
+	<Properties>
+		<Property name="filename">logs/http-json-client.log</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<File name="MyFile" fileName="${filename}">
+			<PatternLayout>
+				<Pattern>
+					%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+				</Pattern>
+			</PatternLayout>
+		</File>
+		<Async name="Async">
+			<AppenderRef ref="MyFile" />
+		</Async>
+	</Appenders>
+	<loggers>
+		<logger name="com.http.cliente.HttpClientTest" level="debug"
+			additivity="false">
+			<appender-ref ref="Async" />
+			<appender-ref ref="Console" />
+		</logger>
+		<root level="error">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+</Configuration>
