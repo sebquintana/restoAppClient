@@ -16,9 +16,6 @@
 	<bean id="httpClient" class="com.http.cliente.HttpClientTest">
 		<property name="httpClient" ref="client" />
 		<property name="serverAddress" value="${server.address}" />
-		<property name="message" value="${http.client.test.message}" />
-		<property name="sendMessageDelay" value="${http.client.send.message.delay}" />
-		<property name="sendMessagePeriod" value="${http.client.send.message.period}" />
 	</bean>
 	
 	<bean id="client" class="org.apache.commons.httpclient.HttpClient" >
