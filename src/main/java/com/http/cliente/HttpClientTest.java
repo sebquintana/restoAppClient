@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.google.gson.Gson;
+import com.model.carta.Carta;
 
 public class HttpClientTest {
 
@@ -29,17 +30,18 @@ public class HttpClientTest {
 		GetMethod getMethod = null;
 		int responseCode = -1;
 		try {
-			LOGGER.info("=====================================================");
-			LOGGER.info("=====  	Pidiendo la carta... 				======");
-			LOGGER.info("=====================================================");
+			LOGGER.info("=================================================");
+			LOGGER.info("=====  	Pidiendo la carta... 	       ======");
+			LOGGER.info("=================================================");
 			getMethod = new GetMethod(serverAddress + CARTA_SERVLET_CONTEXT);
-			System.out.println(serverAddress + CARTA_SERVLET_CONTEXT);
-			LOGGER.debug("Sending the HTTP GET");
+			LOGGER.info("Server URL: " + serverAddress + CARTA_SERVLET_CONTEXT);
+			LOGGER.debug("Enviando el request HTTP GET");
 			responseCode = httpClient.executeMethod(getMethod);
 			LOGGER.info("HTTP GET Response Code: " + responseCode);
 			String respuesta = getMethod.getResponseBodyAsString();
 			LOGGER.info("Respuesta: " + respuesta);
-			
+			Carta carta = gson.fromJson(respuesta, Carta.class);
+			LOGGER.info("Restaurant: " + carta.getRestaurant());
 		} catch (Exception e) {
 			LOGGER.error("Exception => ", e);
 		} finally {

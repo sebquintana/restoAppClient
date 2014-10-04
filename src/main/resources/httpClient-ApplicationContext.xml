@@ -16,6 +16,7 @@
 	<bean id="httpClient" class="com.http.cliente.HttpClientTest">
 		<property name="httpClient" ref="client" />
 		<property name="serverAddress" value="${server.address}" />
+		<property name="gson" ref="gson" />
 	</bean>
 	
 	<bean id="client" class="org.apache.commons.httpclient.HttpClient" >
