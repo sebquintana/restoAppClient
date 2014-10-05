@@ -13,9 +13,9 @@ import com.google.gson.GsonBuilder;
 import com.model.carta.ItemCarta;
 import com.model.pedido.Pedido;
 
-public class test {
+public class PedidoTest {
 
-	private static String cartaFilePath = "/home/seba/dev/Workspace/restoAppClient/src/main/resources/test.json";
+	private static String pedidoFilePath = "/home/seba/dev/Workspace/restoAppClient/src/main/resources/pedido.json";
 
 	public static void main(String[] args) {
 		deJavaAJson();
@@ -28,11 +28,12 @@ public class test {
 
 		String cartaString = "";
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(cartaFilePath));
+			BufferedReader br = new BufferedReader(new FileReader(pedidoFilePath));
 			Pedido pedido = gson.fromJson(br, Pedido.class);
 			GsonBuilder gbuilder = new GsonBuilder();
 			gbuilder.enableComplexMapKeySerialization();
 			cartaString = gbuilder.create().toJson(pedido);
+			br.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,13 +44,14 @@ public class test {
 		Gson gson = new Gson();
 		try {
 	 
-			BufferedReader br = new BufferedReader(new FileReader(cartaFilePath));
+			BufferedReader br = new BufferedReader(new FileReader(pedidoFilePath));
 			Pedido obj = gson.fromJson(br, Pedido.class);
 			Iterator<Entry<ItemCarta, Integer>> it = obj.getPedido().entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<ItemCarta, Integer> item = (Map.Entry<ItemCarta, Integer>) it.next();
 				System.out.println("Nombre " + item.getKey().getNombre() + " Cantidad " + item.getValue());
 			}
+			br.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -64,10 +66,10 @@ public class test {
 		pedido.agregarItem(item, 2);
 		pedido.agregarItem(item2, 2);
 		GsonBuilder gbuilder = new GsonBuilder();
-		gbuilder.enableComplexMapKeySerialization().setPrettyPrinting();
+		gbuilder.enableComplexMapKeySerialization();
 		String json = gbuilder.create().toJson(pedido);
 		try {
-			FileWriter writer = new FileWriter(cartaFilePath);
+			FileWriter writer = new FileWriter(pedidoFilePath);
 			writer.write(json);
 			writer.close();
 

@@ -21,7 +21,7 @@ public class HttpClientTest {
 
 	private static final String CARTA_SERVLET_CONTEXT = "/carta";
 	private static final String PEDIDO_SERVLET_CONTEXT = "/pedido";
-	private static String pedidoFilePath = "/home/seba/dev/Workspace/restoAppClient/src/main/resources/test.json";
+	private static String pedidoFilePath = "/home/seba/dev/Workspace/restoAppClient/src/main/resources/pedido.json";
 	private static final Logger LOGGER = LogManager.getLogger();
 	private String serverAddress;
 	private HttpClient httpClient;
@@ -32,7 +32,7 @@ public class HttpClientTest {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"httpClient-ApplicationContext.xml");
 		HttpClientTest client = (HttpClientTest) context.getBean("httpClient");
-//		client.pedirCarta();
+		client.pedirCarta();
 		client.enviarPedido();
 	}
 
@@ -89,6 +89,7 @@ public class HttpClientTest {
 				GsonBuilder gbuilder = new GsonBuilder();
 				gbuilder.enableComplexMapKeySerialization();
 				pedido = gbuilder.create().toJson(aux);
+				br.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
